@@ -1,0 +1,16 @@
+{
+  "sales": [
+    {
+      "date": "2024-03-01",
+      "product": "Widget A",
+      "quantity": 100,
+      "revenue": 5000
+    },
+    {
+      "date": "2024-03-02",
+      "product": "Widget B",
+      "quantity": 150,
+      "revenue": 7500
+    }
+  ]
+} 

@@ -1,0 +1,63 @@
+workspace_id: "your-workspace-id"
+dataset_id: "your-dataset-id"
+
+semantic_tests:
+  required_tables:
+    - name: "Sales"
+      required_columns:
+        - name: "OrderDate"
+          data_type: "datetime"
+          nullable: false
+        - name: "Revenue"
+          data_type: "decimal"
+          nullable: false
+      row_count_threshold: 1000000
+
+  required_relationships:
+    - name: "Sales_Date"
+      from_table: "Sales"
+      from_column: "OrderDate"
+      to_table: "Date"
+      to_column: "Date"
+      type: "Single"
+      cross_filter: "Both"
+
+  required_measures:
+    - name: "Total Revenue"
+      test_data:
+        expected_value: 1000000.00
+    - name: "YTD Revenue"
+      test_data:
+        expected_value: 750000.00
+
+report_tests:
+  required_visuals:
+    - name: "Revenue by Category"
+      type: "columnChart"
+      load_threshold_ms: 1500
+      required_fields: ["Category", "Revenue"]
+    - name: "Monthly Trend"
+      type: "lineChart"
+      load_threshold_ms: 2000
+      required_fields: ["Date", "Revenue"]
+
+data_quality_tests:
+  null_checks:
+    - table: "Sales"
+      columns: ["OrderDate", "Revenue"]
+  value_ranges:
+    - table: "Sales"
+      column: "Revenue"
+      min: 0
+      max: 1000000
+  date_ranges:
+    - table: "Sales"
+      column: "OrderDate"
+      min_years_back: 5
+      max_future_days: 0
+
+performance_config:
+  visual_load_threshold_ms: 2000
+  page_load_threshold_ms: 5000
+  query_timeout_ms: 30000
+  refresh_timeout_ms: 300000 

@@ -1,0 +1,103 @@
+@use '@angular/material' as mat;
+
+// ... existing Material theme imports ...
+
+// Global styles
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #ffffff;
+}
+
+// Glassmorphism card styles
+.glass-card {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+  border-radius: 12px !important;
+
+  .mat-mdc-card-header {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mat-mdc-card-title {
+    color: #ffffff !important;
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+  }
+}
+
+// Table styles
+.mat-mdc-table {
+  background: transparent !important;
+  
+  .mat-mdc-header-cell {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff !important;
+    font-weight: 500;
+  }
+
+  .mat-mdc-cell {
+    color: #ffffff !important;
+  }
+
+  .mat-mdc-row {
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+.pass {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.fail {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.mat-mdc-card {
+  margin: 16px;
+}
+
+// Dialog styles
+.centered-dialog {
+  margin: 0 !important;
+}
+
+.dialog-backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: transparent !important;
+  
+  .mdc-dialog__surface {
+    background: rgba(30, 41, 59, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+  }
+}
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.centered-dialog .mat-mdc-dialog-container {
+  animation: dialogFadeIn 0.15s ease-out forwards;
+}

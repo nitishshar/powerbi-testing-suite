@@ -1,0 +1,73 @@
+<div class="dashboard-container">
+  <div *ngIf="loading" class="loading-overlay">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <app-test-summary [testResults]="testResults"></app-test-summary>
+
+  <app-test-filters (categoryChange)="onCategoryChange($event)"></app-test-filters>
+
+  <mat-card class="glass-card">
+    <mat-card-header>
+      <mat-card-title>Test Results</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="filteredResults" matSort>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+            <td mat-cell *matCellDef="let result">
+              <span class="status-badge" [class]="result.status.toLowerCase()">
+                {{ result.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="priority">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+            <td mat-cell *matCellDef="let result">
+              <span class="priority-badge" [class]="result.priority.toLowerCase()">
+                {{ result.priority }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="testName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Test Name</th>
+            <td mat-cell *matCellDef="let result">{{ result.testName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+            <td mat-cell *matCellDef="let result">{{ result.category }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+            <td mat-cell *matCellDef="let result">{{ result.duration.toFixed(1) }}s</td>
+          </ng-container>
+
+          <ng-container matColumnDef="owner">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner</th>
+            <td mat-cell *matCellDef="let result">{{ result.owner }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastSuccess">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Success</th>
+            <td mat-cell *matCellDef="let result">{{ result.lastSuccess | date:'medium' }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+              [class.failed-row]="row.status === 'Fail'"
+              (click)="openDetails(row)"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+                      [pageSize]="10"
+                      aria-label="Select page of test results">
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div> 
